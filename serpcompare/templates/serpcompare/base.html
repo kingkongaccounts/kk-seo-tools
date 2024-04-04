@@ -36,52 +36,53 @@
 
   <header class="container mx-auto mt-8 py-8">
     <h1 class="text-4xl text-center text-teal-500 uppercase font-bold"><a href="/">* SERP Compare *</a></h1>
-    <hr class="mt-8">
   </header>
 
   <section class="container mx-auto">
-    <p class="text-center text-lg font-semibold">Enter the keywords you want to compare the SERP Results for below:</p>
+    <div class="mx-4 bg-white py-10 border border-gray-300 rounded-2xl">
+      <p class="text-center text-lg font-semibold">Enter the keywords you want to compare the SERP Results for below:</p>
 
-    <form hx-post="/serp-compare/" hx-trigger="submit" hx-target="#results-area" hx-swap="outerHTML" hx-indicator="#spinner" hx-disabled-elt=".action-btn" class="flex items-center justify-center gap-4 m-8">
-      <div class="w-full max-w-xs">
-        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="text" name="keyword1" label="Enter Keyword 1" placeholder="Enter Keyword 1" required>
-      </div>
-      <div class="w-full max-w-xs">
-        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="text" name="keyword2" label="Enter Keyword 2" placeholder="Enter Keyword 2" required>
-      </div>
-      <div class="w-full max-w-xs">
-        <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                name="country" required>
-          <option value="" selected disabled hidden>Select Country</option>
-          <option value="Australia">Australia</option>
-          <option value="Canada">Canada</option>
-          <option value="New Zealand">New Zealand</option>
-          <option value="United Kingdom">United Kingdom</option>
-          <option value="United States">United States</option>
-          <option value="United Arab Emirates">United Arab Emirates</option>
-        </select>
-      </div>
-      <div class="w-full max-w-xs hidden">
-        <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                name="search-location">
-          <option value="" selected>Select Search Location</option>
-          <option value="Melbourne, Victoria, Australia">Melbourne, Victoria, Australia</option>
-          <option value="Sydney, New South Wales, Australia">Sydney, New South Wales, Australia</option>
-          <option value="Adelaide, South Australia, Australia">Adelaide, South Australia, Australia</option>
-        </select>
-      </div>
-      <div class="w-fit">
-        <input class="action-btn bg-teal-500 hover:bg-teal-700 disabled:bg-gray-400 text-white font-bold py-3 px-8 rounded-full cursor-pointer" type="submit" value="Compare">
-        <button class="action-btn bg-teal-500 hover:bg-teal-700 disabled:bg-gray-400 text-white font-bold py-3 px-8 rounded-full" hx-get="/serp-history/" hx-target="#results-area" hx-swap="outerHTML" hx-indicator="#spinner">See History</button>
-      </div>
-      <div class="w-fit">
-        <p class="text-center flex flex-col justify-center items-center"><span id="spinner" class="htmx-indicator loader"></span></p>
-      </div>
-    </form>
-
-    <hr class="mt-8">
+      <form hx-post="/serp-compare/" hx-trigger="submit" hx-target="#results-area" hx-swap="outerHTML" hx-indicator="#spinner" hx-disabled-elt=".action-btn" class="">
+        <div class="w-full flex items-center justify-center gap-4 mt-8">
+          <div class="w-full max-w-xs">
+            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    type="text" name="keyword1" label="Enter Keyword 1" placeholder="Enter Keyword 1" required>
+          </div>
+          <div class="w-full max-w-xs">
+            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    type="text" name="keyword2" label="Enter Keyword 2" placeholder="Enter Keyword 2" required>
+          </div>
+          <div class="w-full max-w-xs">
+            <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    name="country" required>
+              <option value="" selected disabled hidden>Select Country</option>
+              <option value="Australia">Australia</option>
+              <option value="Canada">Canada</option>
+              <option value="New Zealand">New Zealand</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="United States">United States</option>
+              <option value="United Arab Emirates">United Arab Emirates</option>
+            </select>
+          </div>
+          <div class="w-full max-w-xs hidden">
+            <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    name="search-location">
+              <option value="" selected>Select Search Location</option>
+              <option value="Melbourne, Victoria, Australia">Melbourne, Victoria, Australia</option>
+              <option value="Sydney, New South Wales, Australia">Sydney, New South Wales, Australia</option>
+              <option value="Adelaide, South Australia, Australia">Adelaide, South Australia, Australia</option>
+            </select>
+          </div>
+          <div class="w-fit">
+            <p class="text-center flex flex-col justify-center items-center"><span id="spinner" class="htmx-indicator loader"></span></p>
+          </div>
+        </div>
+        <div class="w-full flex items-center justify-center gap-4 mt-8">
+          <input class="action-btn bg-teal-500 hover:bg-teal-700 disabled:bg-gray-400 text-white font-bold py-3 px-16 rounded-full cursor-pointer" type="submit" value="Compare">
+          <a class="action-btn text-gray-700 font-bold cursor-pointer p-2 underline hover:no-underline block" hx-get="/serp-history/" hx-target="#results-area" hx-swap="outerHTML" hx-indicator="#spinner">See History</a>
+        </div>
+      </form>
+    </div>
   </section>
 
   <div id="results-area" class="px-8">
