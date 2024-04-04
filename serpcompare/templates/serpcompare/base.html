@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      color: #333;
+    }
+    .loader {
+    width: 40px;
+    height: 40px;
+    border: 5px solid #99f6e4;
+    border-bottom-color: #14b8a6;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
+  </style>
+</head>
+<body class="bg-gray-100" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+  <header class="container mx-auto mt-8 py-8">
+    <h1 class="text-4xl text-center text-teal-500 uppercase font-bold"><a href="/">* SERP Compare *</a></h1>
+    <hr class="mt-8">
+  </header>
+
+  <section class="container mx-auto">
+    <p class="text-center text-lg font-semibold">Enter the keywords you want to compare the SERP Results for below:</p>
+
+    <form hx-post="/serp-compare/" hx-trigger="submit" hx-target="#results-area" hx-swap="outerHTML" hx-indicator="#spinner" hx-disabled-elt=".action-btn" class="flex items-center justify-center gap-4 m-8">
+      <div class="w-full max-w-xs">
+        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                type="text" name="keyword1" label="Enter Keyword 1" placeholder="Enter Keyword 1" required>
+      </div>
+      <div class="w-full max-w-xs">
+        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                type="text" name="keyword2" label="Enter Keyword 2" placeholder="Enter Keyword 2" required>
+      </div>
+      <div class="w-full max-w-xs">
+        <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                name="country" required>
+          <option value="" selected disabled hidden>Select Country</option>
+          <option value="Australia">Australia</option>
+          <option value="Canada">Canada</option>
+          <option value="New Zealand">New Zealand</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="United States">United States</option>
+          <option value="United Arab Emirates">United Arab Emirates</option>
+        </select>
+      </div>
+      <div class="w-full max-w-xs hidden">
+        <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                name="search-location">
+          <option value="" selected>Select Search Location</option>
+          <option value="Melbourne, Victoria, Australia">Melbourne, Victoria, Australia</option>
+          <option value="Sydney, New South Wales, Australia">Sydney, New South Wales, Australia</option>
+          <option value="Adelaide, South Australia, Australia">Adelaide, South Australia, Australia</option>
+        </select>
+      </div>
+      <div class="w-fit">
+        <input class="action-btn bg-teal-500 hover:bg-teal-700 disabled:bg-gray-400 text-white font-bold py-3 px-8 rounded-full cursor-pointer" type="submit" value="Compare">
+        <button class="action-btn bg-teal-500 hover:bg-teal-700 disabled:bg-gray-400 text-white font-bold py-3 px-8 rounded-full" hx-get="/serp-history/" hx-target="#results-area" hx-swap="outerHTML" hx-indicator="#spinner">See History</button>
+      </div>
+      <div class="w-fit">
+        <p class="text-center flex flex-col justify-center items-center"><span id="spinner" class="htmx-indicator loader"></span></p>
+      </div>
+    </form>
+
+    <hr class="mt-8">
+  </section>
+
+  <div id="results-area" class="px-8">
+    <!-- SERP Compare Results Goes Here -->
+    <p id="serp-similarity" class="text-2xl font-bold text-center py-8">SERP Similarity: <span class="text-teal-500">%</span></p>
+  
+    <section class="w-full min-w-lg mt-2">
+      <div class="flex gap-4">
+  
+        <div id="serp-keyword1" class="w-1/2">
+          <div class="w-full">
+            <p class="text-center flex flex-col justify-center items-center"><span id="keyword1-spinner" class="htmx-indicator loader"></span></p>
+          </div>
+          <div id="serp-keyword1-results"></div>
+        </div>
+  
+        <div id="serp-keyword2" class="w-1/2">
+          <div class="w-full">
+            <p class="text-center flex flex-col justify-center items-center"><span id="keyword2-spinner" class="htmx-indicator loader"></span></p>
+          </div>
+          <div id="serp-keyword2-results"></div>
+        </div>
+  
+      </div>
+    </section>
+  </div>
+
+  <footer class="container mx-auto my-8">
+    <hr class="mb-8">
+    <p class="text-xs text-center text-gray-700 font-semibold">SERP Compare by Prashant</p>
+  </footer>
+
+</body>
+</html>

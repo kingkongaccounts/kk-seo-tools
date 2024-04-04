@@ -1,0 +1,52 @@
+<div id="results-area" class="container mx-auto px-4">
+  <div class="flex justify-between items-center">
+    <p class="text-2xl font-bold text-center py-8">SERP Compare History</p>
+    <button class="bg-gray-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-full" 
+            hx-post="/clear-serp-history/" hx-target="#results-area" hx-swap="outerHTML" hx-indicator="#spinner" hx-confirm="Are you sure?">Clear History</button>
+  </div>
+
+  <section class="w-full min-w-lg mt-2">
+    <div>
+      {% if session_data %}
+        {% for keyword, serp_results in session_data.items %}
+          <div class="group flex flex-col gap-2 rounded-lg bg-white border border-gray-300 p-4 mb-4" tabindex="1">
+            <div class="flex cursor-pointer items-center justify-between">
+              <p class="text-lg">{{ keyword }}</p>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/9/96/Chevron-icon-drop-down-menu-WHITE.png"
+                class="h-2 w-3 transition-all duration-500 group-focus:-rotate-180"
+              />
+            </div>
+            <div
+              class="invisible h-auto max-h-0 items-center opacity-0 transition-all group-focus:visible group-focus:max-h-full group-focus:opacity-100 group-focus:duration-1000"
+            >
+
+              <div class="w-full mt-2">
+                {% for item in serp_results %}
+                <article class="py-3 flex gap-3">
+                  {% if item.isCommon %}
+                  <div class="flex justify-center items-center bg-teal-200 w-10 h-24">
+                  {% else %}
+                  <div class="flex justify-center items-center bg-gray-200 w-10 h-24">
+                  {% endif %}
+                    <p class="text-2xl text-gray-800">{{ item.rank_group }}</p>
+                  </div>
+                  <div class="w-full">
+                    <p class="text-sm text-gray-800">{{ item.url }}</p>
+                    <a href="{{ item.link }}" class="text-2xl text-indigo-800 hover:underline">{{ item.title }}</a>
+                    <p class="text-gray-800">{{ item.description }}</p>
+                  </div>
+                </article>
+                {% endfor %}
+              </div>
+
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="text-lg rounded-lg bg-white border border-gray-300 p-4">History empty!</p>
+      {% endif %}
+    </div>
+
+  </section>
+</div>

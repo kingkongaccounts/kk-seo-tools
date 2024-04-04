@@ -1,0 +1,64 @@
+<div id="results-area" class="px-8">
+  <!-- SERP Compare Results Goes Here -->
+  <p id="serp-similarity" class="text-2xl font-bold text-center py-8">SERP Similarity: <span class="text-teal-500">{{ similarity }}%</span></p>
+
+  <section class="w-full min-w-lg mt-2">
+    <div class="flex gap-4">
+
+      <div id="serp-keyword1" class="w-1/2">
+        <div class="w-full">
+          <p class="text-center flex flex-col justify-center items-center h-0"><span id="keyword1-spinner" class="htmx-indicator loader"></span></p>
+        </div>
+        <div id="serp-keyword1-results">
+          <p class="text-lg font-bold px-4 py-4">Results For: <span class="font-normal">{{ keyword1 }}</span></p>
+          <div class="w-full px-4 py-2 bg-white border border-gray-300">
+            {% for item in results1 %}
+            <article class="py-3 flex gap-3">
+              {% if item.isCommon %}
+              <div class="flex justify-center items-center bg-teal-200 w-10 h-24">
+              {% else %}
+              <div class="flex justify-center items-center bg-gray-200 w-10 h-24">
+              {% endif %}
+                <p class="text-2xl text-gray-800">{{ item.rank_group }}</p>
+              </div>
+              <div class="w-full">
+                <p class="text-sm text-gray-800">{{ item.url }}</p>
+                <a href="{{ item.link }}" class="text-2xl text-indigo-800 hover:underline">{{ item.title }}</a>
+                <p class="text-gray-800">{{ item.description }}</p>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div id="serp-keyword2" class="w-1/2">
+        <div class="w-full">
+          <p class="text-center flex flex-col justify-center items-center h-0"><span id="keyword2-spinner" class="htmx-indicator loader"></span></p>
+        </div>
+        <div id="serp-keyword2-results">
+          <p class="text-lg font-bold px-4 py-4">Results For: <span class="font-normal">{{ keyword2 }}</span></p>
+          <div class="w-full px-4 py-2 bg-white border border-gray-300">
+            {% for item in results2 %}
+            <article class="py-3 flex gap-3">
+              {% if item.isCommon %}
+              <div class="flex justify-center items-center bg-teal-200 w-10 h-24">
+              {% else %}
+              <div class="flex justify-center items-center bg-gray-200 w-10 h-24">
+              {% endif %}
+                <p class="text-2xl text-gray-800">{{ item.rank_group }}</p>
+              </div>
+              <div class="w-full">
+                <p class="text-sm text-gray-800">{{ item.url }}</p>
+                <a href="{{ item.link }}" class="text-2xl text-indigo-800 hover:underline cursor-pointer">{{ item.title }}</a>
+                <p class="text-gray-800">{{ item.description }}</p>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
